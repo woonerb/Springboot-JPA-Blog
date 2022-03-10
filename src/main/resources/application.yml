@@ -1,7 +1,7 @@
 server:
   port: 8000
   servlet:
-    context-path: /
+    context-path: /blog ## 각 페이지경로-> http://localhost:8000/blog/컨트롤러의@GetMapping("_____")부분!!
     
 spring:
   mvc:
