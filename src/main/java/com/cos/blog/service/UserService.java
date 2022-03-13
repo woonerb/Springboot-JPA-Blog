@@ -29,4 +29,11 @@ public class UserService
 		}
 		return -1;
 	}
+	
+	
+	@Transactional(readOnly = true) // select 할때 트랜잭션이 시작, 해당 서비스가 종료될 때 트랜잭션이 종료된다(정합성 유지위해서 사용!)
+	public User 로그인(User user) 
+	{
+			return userRepository.findByUsernameAndPassword(user.getUsername(),user.getPassword());
+	}
 }
