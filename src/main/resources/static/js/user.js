@@ -1,7 +1,7 @@
 let index = {
 
 	init: function() {    //btn-save버튼이 클릭되면 save를 한다
-		$("#btn-save").on("click", () => {
+		$("#btn-save").on("click", () => { //function()=>{} this를 바인딩 해주기 위하여 사용!
 			this.save();
 		});
 	}
@@ -13,11 +13,34 @@ let index = {
 			username:$("#username").val(),
 			password:$("#password").val(),
 			email:$("#email").val(),
-		}
+		};
 		
-		//console.log(data);
-		$ajax().done.fail(); //ajax 통신을 이용해서 3개의 데이터를 
+		
+		// ajax 호출시 default가 비동기 호출이다
+		// ajax 통신을 이용해서 3개의 데이터를 json으로 변경해서 isnert 요청한다
+		$.ajax({
+			//회원가입 수행을 요청해서
+			type:"POST",
+			url:"/blog/api/user",
+			data:JSON.stringify(data),
+			contentType:"application/json; charset=utf-8",  //body데이터의 타입  (MIME)
+			dataType:"json"									//요청에 대해 응답받을 데이터의 타입이며 여기여 json을 적어두면 
+															//응답받은 byte문자열 ->javascript object로 자동 변환해줌
+			
+		    //결과가 정상인경우	
+		}).done(function(resp){
+				alert("회원가입이 완료되었습니다.");
+				console.log(resp);
+				location.href="/blog";
+			
+		   //결과가 실패인경우
+		}).fail(function(error){
+				alert(JSON.stringify(error));		
+			
+		}); //ajax 통신을 이용해서 3개의 데이터를 
 		                     //json으로 변경하여 insert 요청한다
+		                     
+		                     
 	}
 
 }
